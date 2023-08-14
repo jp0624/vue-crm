@@ -92,20 +92,6 @@ export default {
 				#494949 100%
 			);
 
-			@import "../../../styles/_media";
-			@include mq(md) {
-				.card__headings {
-					background: none;
-
-					&--first_name,
-					&--last_name,
-					&--phone,
-					&--email {
-						display: none;
-					}
-				}
-			}
-
 			/* Button Container Styles */
 			&--btns {
 				text-align: center;
@@ -132,6 +118,24 @@ export default {
 					}
 				}
 			}
+			@import "../../../styles/_media";
+			@include mq(md) {
+				background: none;
+				text-align: right;
+				&div {
+					padding: 0;
+					margin: 0;
+				}
+				&--first_name,
+				&--last_name,
+				&--phone,
+				&--email {
+					display: none;
+				}
+				&--btns {
+					text-align: right;
+				}
+			}
 		}
 
 		/* Card Headings and Client Row Styles */
@@ -148,6 +152,10 @@ export default {
 
 			div {
 				padding: 1rem 0.25rem;
+				@import "../../../styles/_media";
+				@include mq(md) {
+					padding: 0;
+				}
 			}
 		}
 	}
