@@ -91,6 +91,41 @@ export default {
 			text-overflow: ellipsis;
 			overflow: hidden;
 		}
+
+		@import "../../styles/_media";
+		@include mq(md) {
+			div {
+				padding: 0.25rem 0;
+			}
+			padding: 1rem;
+			grid-gap: 0px;
+			grid-template-columns: [col] 100px [col] 100px [col] 100px [col] 100px;
+			grid-template-rows: [row] auto [row] auto [row];
+			&--first_name {
+				grid-column: col / span 2;
+				grid-row: row 1;
+			}
+			&--last_name {
+				grid-column: col 1 / span 2;
+				grid-row: row 2;
+			}
+			&--phone {
+				grid-column: col 3 / span 2;
+				grid-row: row 1;
+			}
+			&--email {
+				grid-column: col 3 / span 2;
+				grid-row: row 2;
+			}
+			&--btns {
+				position: absolute;
+				width: 5rem;
+				left: 0rem;
+				button {
+					display: inline-block;
+				}
+			}
+		}
 	}
 }
 </style>
