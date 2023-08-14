@@ -128,7 +128,6 @@ export default {
 	justify-content: center;
 	text-align: center;
 	align-items: center;
-	font-size: 1.25rem;
 	font-weight: 400;
 	color: #fff;
 	position: fixed;
