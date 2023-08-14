@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Header @open="showModal = true" />
+		<Header @open="showModal = 'addClient'" />
 		<article>
 			<ul class="client_list">
 				<li class="client_list__row">
@@ -12,7 +12,7 @@
 						<div class="card__headings--btns">
 							<button
 								class="card__headings--btns--add"
-								@click="showModal = true"
+								@click="showModal = 'addClient'"
 							>
 								<span class="material-symbols-rounded"
 									>add</span
@@ -22,20 +22,29 @@
 						</div>
 					</div>
 				</li>
-				<li
-					v-for="client in clientList"
-					:key="client.id"
-					class="client_list__row"
-				>
-					<ClientCard :client="client" />
-				</li>
+				<template v-if="clientList.length > 0">
+					<li
+						v-for="client in clientList"
+						:key="client.id"
+						class="client_list__row"
+					>
+						<ClientCard :client="client" />
+					</li>
+				</template>
+				<template v-else>
+					<li class="client_list__row--loading">Loading...</li>
+				</template>
 			</ul>
 		</article>
 		<!-- <pre>{{ clientList }}</pre> -->
 		<Footer />
 		<teleport to="#modal">
-			<MainModal v-show="showModal" @close="showModal = false">
-				<AddClient @close="showModal = false" />
+			<MainModal v-show="showModal" @close="closeModal">
+				<AddClient
+					v-show="showModal === 'addClient'"
+					@close="closeModal"
+					:activeClient="activeClient"
+				/>
 			</MainModal>
 		</teleport>
 	</div>
@@ -62,8 +71,14 @@ export default {
 	},
 	setup() {
 		const clientList = ref([])
-		const showModal = ref(false)
+		let activeClient = ref([])
+		let showModal = ref(false)
 
+		function closeModal() {
+			console.log("close")
+			showModal = false
+			activeClient = []
+		}
 		onMounted(() => {
 			onSnapshot(collection(db, "crm-db"), (querySnapshot) => {
 				const clients = []
@@ -82,7 +97,14 @@ export default {
 				console.log("clientList: ", clientList.value)
 			})
 		})
-		return { clientList, showModal, AddClient, ClientCard }
+		return {
+			closeModal,
+			activeClient,
+			clientList,
+			showModal,
+			AddClient,
+			ClientCard,
+		}
 	},
 }
 </script>
@@ -90,6 +112,12 @@ export default {
 <style lang="scss" scoped>
 .client_list {
 	.client_list__row {
+		&--loading {
+			width: 100%;
+			text-align: center;
+			justify-content: center;
+			height: 100%;
+		}
 		.card__headings {
 			color: #fff;
 			font-weight: 400;
