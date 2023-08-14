@@ -1,5 +1,5 @@
 <template>
-	<form @submit.prevent="addClient">
+	<form @submit.prevent="addClient" id="form_addClient">
 		<h2>Add Client</h2>
 		<label for="first_name">First Name</label>
 		<input
@@ -41,6 +41,7 @@
 			v-model="notes"
 		></textarea>
 		<button type="submit">Add Client</button>
+		<a @click="clearForm">Clear Form</a>
 	</form>
 </template>
 
@@ -50,10 +51,16 @@ import { toRefs, reactive } from "vue"
 import { db } from "../../helpers/dbConnect"
 export default {
 	name: "AddClient",
+	// emits: ["close"],
 	setup() {
 		async function addClient() {
-			await addDoc(collection(db, "crm-db"), state)
+			addDoc(collection(db, "crm-db"), state)
+			clearForm()
+			// $emit("close")
 			console.log(`ADD Client ${state}`)
+		}
+		function clearForm() {
+			document.forms["form_addClient"].reset()
 		}
 		const state = reactive({
 			first_name: "",
@@ -64,6 +71,7 @@ export default {
 		})
 
 		return {
+			clearForm,
 			addClient,
 			...toRefs(state),
 		}

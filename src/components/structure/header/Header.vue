@@ -1,14 +1,14 @@
 <template>
-	<header>
-		<button @click="$emit('open')">Add Client</button>
-		{{ header }}
+	<header class="header">
+		<a href="./" class="logo__main">
+			<img src="/assets/img/logo/logo-horz.svg" />
+		</a>
 	</header>
 </template>
 
 <script>
 export default {
 	name: "Header",
-	emits: ["open"],
 	setup() {
 		const header = "Header Introduction"
 
@@ -19,4 +19,34 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.header {
+	display: flex;
+	flex-direction: row;
+	background-color: #111;
+	border-bottom: 2px solid rgba(130, 130, 130, 255);
+	box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+
+	.logo {
+		&__main {
+			height: 100%;
+			width: 20%;
+			display: flex;
+			position: relative;
+			align-items: center;
+			justify-content: center;
+
+			// @include mq(md) {
+			// 	width: 50%;
+			// 	box-sizing: border-box;
+			// }
+
+			img {
+				height: 50%;
+				position: relative;
+				display: inline-flex;
+			}
+		}
+	}
+}
+</style>
