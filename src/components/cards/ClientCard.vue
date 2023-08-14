@@ -12,7 +12,7 @@
 			<!-- Edit Button -->
 			<button
 				class="card__client--btns--edit material-symbols-rounded"
-				@click="$emit('activeClient', client)"
+				@click.stop="$emit('activeClient', client)"
 			>
 				edit_note
 			</button>
@@ -20,7 +20,7 @@
 			<!-- Delete Button -->
 			<button
 				class="card__client--btns--delete material-symbols-rounded"
-				@click="deleteClient(client.id)"
+				@click.stop="deleteClient(client.id)"
 			>
 				close
 			</button>
