@@ -48,7 +48,7 @@ export default {
 		overflow-y: scroll;
 		position: relative;
 		width: 500px;
-		max-width: 80%;
+		max-width: 70%;
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 		justify-self: center;
 
