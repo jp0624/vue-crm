@@ -1,6 +1,6 @@
 <template>
 	<!-- Client Card -->
-	<div class="card__client">
+	<div class="card__client" @click="$emit('activeClient', client)">
 		<!-- Client Details -->
 		<div class="card__client--first_name">{{ client.first_name }}</div>
 		<div class="card__client--last_name">{{ client.last_name }}</div>
