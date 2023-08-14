@@ -1,4 +1,4 @@
-# Vue 3 + TypeScript + Vite
+# Vue 3 + Firebase + TypeScript + Vite
 
 ## Basic Start to a CRM
 
