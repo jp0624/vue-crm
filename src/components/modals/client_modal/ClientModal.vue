@@ -63,9 +63,11 @@ export default {
 			if (!!state.id) {
 				updateDoc(doc(db, "crm-db", state.id), state)
 				context.emit("close")
+				context.emit("alert", "Client Updated successfully")
 			} else {
 				addClient()
 				context.emit("close")
+				context.emit("alert", "Client Added successfully")
 			}
 		}
 		async function addClient() {

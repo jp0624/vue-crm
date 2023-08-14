@@ -1,5 +1,10 @@
 <template>
 	<div>
+		<!-- <template v-if="alertMessage"> -->
+		<div class="alert-message" :class="alertMessage ? 'show' : 'hide'">
+			<h3>{{ alertMessage }}</h3>
+		</div>
+		<!-- </template> -->
 		<Header />
 		<article>
 			<ClientList @open="openModal" />
@@ -8,7 +13,11 @@
 		<teleport to="#modal">
 			<MainModal v-show="showModal" @close="closeModal">
 				<template v-if="showModal === 'addClient'">
-					<ClientModal @close="closeModal" :client="activeClient" />
+					<ClientModal
+						@close="closeModal"
+						@alert="showAlert"
+						:client="activeClient"
+					/>
 				</template>
 			</MainModal>
 		</teleport>
@@ -38,9 +47,9 @@ export default {
 		const clientList = ref([])
 		let activeClient = ref([])
 		let showModal = ref(false)
+		let alertMessage = ref("")
 
 		function closeModal() {
-			console.log("close")
 			showModal.value = false
 			activeClient.value = []
 		}
@@ -49,6 +58,12 @@ export default {
 			if (!!value && name === "addClient") {
 				activeClient.value = value
 			}
+		}
+		function showAlert(message) {
+			alertMessage.value = message
+			setTimeout(() => {
+				alertMessage.value = ""
+			}, 3000)
 		}
 		onMounted(() => {
 			onSnapshot(collection(db, "crm-db"), (querySnapshot) => {
@@ -71,6 +86,8 @@ export default {
 		return {
 			openModal,
 			closeModal,
+			showAlert,
+			alertMessage,
 			activeClient,
 			clientList,
 			showModal,
@@ -81,4 +98,24 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.alert-message {
+	width: 100%;
+	background: #32a852;
+	height: 2.5rem;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	font-size: 1.25rem;
+	font-weight: 400;
+	color: #fff;
+	position: fixed;
+	z-index: 1;
+	transform: translate(0%, -100%);
+	transition: 250ms ease-in-out all;
+	&.show {
+		transform: translate(0%, 0%);
+	}
+}
+</style>
