@@ -62,7 +62,7 @@ export default {
 		/* Buttons Styles */
 		&--btns {
 			button {
-				margin: 0 0.25rem;
+				margin: 0.25rem;
 				color: #fff;
 				border: none;
 				outline: none;
@@ -87,6 +87,9 @@ export default {
 		div {
 			color: #333;
 			padding: 1rem 0;
+
+			text-overflow: ellipsis;
+			overflow: hidden;
 		}
 	}
 }

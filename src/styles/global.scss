@@ -35,6 +35,7 @@ article {
 	position: relative;
 }
 article {
+	overflow-y: scroll;
 	width: 90%;
 	margin: 1rem auto;
 	min-height: calc(100% - 10rem);

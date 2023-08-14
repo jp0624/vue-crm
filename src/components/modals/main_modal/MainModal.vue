@@ -43,10 +43,12 @@ export default {
 		background: #fff;
 		border-radius: 2px;
 		display: inline-block;
-		min-height: 300px;
-		margin: 1rem;
+		height: auto;
+		max-height: 80%;
+		overflow-y: scroll;
 		position: relative;
-		min-width: 500px;
+		width: 500px;
+		max-width: 80%;
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 		justify-self: center;
 
