@@ -96,10 +96,14 @@ export default {
 		@include mq(md) {
 			div {
 				padding: 0.25rem 0;
+				&.card__client--first_name,
+				&.card__client--last_name {
+					padding-left: 2.5rem;
+				}
 			}
 			padding: 1rem;
 			grid-gap: 0px;
-			grid-template-columns: [col] 100px [col] 100px [col] 100px [col] 100px;
+			grid-template-columns: [col] 25% [col] 25% [col] 25% [col] 25%;
 			grid-template-rows: [row] auto [row] auto [row];
 			&--first_name {
 				grid-column: col / span 2;
@@ -120,7 +124,7 @@ export default {
 			&--btns {
 				position: absolute;
 				width: 5rem;
-				left: 0rem;
+				left: -0.5rem;
 				button {
 					display: inline-block;
 				}

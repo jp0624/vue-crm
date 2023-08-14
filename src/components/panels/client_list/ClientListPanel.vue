@@ -92,6 +92,20 @@ export default {
 				#494949 100%
 			);
 
+			@import "../../../styles/_media";
+			@include mq(md) {
+				.card__headings {
+					background: none;
+
+					&--first_name,
+					&--last_name,
+					&--phone,
+					&--email {
+						display: none;
+					}
+				}
+			}
+
 			/* Button Container Styles */
 			&--btns {
 				text-align: center;
