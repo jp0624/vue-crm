@@ -30,7 +30,7 @@ export default {
 	.logo {
 		&__main {
 			height: 100%;
-			width: 20%;
+			width: 15rem;
 			display: flex;
 			position: relative;
 			align-items: center;

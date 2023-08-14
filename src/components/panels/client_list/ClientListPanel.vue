@@ -23,7 +23,7 @@
 				:key="client.id"
 				class="client_list__row"
 			>
-				<ClientCard :client="client" />
+				<ClientCard :client="client" @activeClient="editClient" />
 			</li>
 		</template>
 		<template v-else>
@@ -40,12 +40,19 @@ export default {
 	components: {
 		ClientCard,
 	},
-	setup() {
+	emits: ["open"],
+	setup(props, context) {
 		const clientList = inject("fullClientList", "No Clients Found")
-		console.log("xclientList:", clientList)
+		console.log("clientList:", clientList)
+
+		function editClient(client) {
+			console.log("client:", client)
+			context.emit("open", "addClient", client)
+		}
 		return {
 			clientList,
 			ClientCard,
+			editClient,
 		}
 	},
 }

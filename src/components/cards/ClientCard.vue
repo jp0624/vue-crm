@@ -5,7 +5,10 @@
 		<div class="card__client--phone">{{ client.phone }}</div>
 		<div class="card__client--email">{{ client.email }}</div>
 		<div class="card__client--btns">
-			<button class="card__client--btns--edit material-symbols-rounded">
+			<button
+				class="card__client--btns--edit material-symbols-rounded"
+				@click="$emit('activeClient', client)"
+			>
 				edit_note
 			</button>
 			<button

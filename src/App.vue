@@ -2,30 +2,27 @@
 	<div>
 		<Header />
 		<article>
-			<ClientList @open="openModal" /><!-- showModal = 'addClient'" /> -->
+			<ClientList @open="openModal" />
 		</article>
-		<!-- <pre>{{ clientList }}</pre> -->
 		<Footer />
 		<teleport to="#modal">
 			<MainModal v-show="showModal" @close="closeModal">
-				<ClientModal
-					v-show="showModal === 'addClient'"
-					@close="closeModal"
-					:activeClient="activeClient"
-				/>
+				<template v-if="showModal === 'addClient'">
+					<ClientModal @close="closeModal" :client="activeClient" />
+				</template>
 			</MainModal>
 		</teleport>
 	</div>
 </template>
 
 <script>
-import { ref, onMounted, reactive, provide } from "vue"
+import { ref, onMounted, provide } from "vue"
 import { collection, onSnapshot } from "firebase/firestore"
 import { db } from "./components/helpers/dbConnect"
 import Header from "./components/structure/header/Header.vue"
 import Footer from "./components/structure/footer/Footer.vue"
 import MainModal from "./components/modals/main_modal/MainModal.vue"
-import ClientList from "./components/panels/client_list/ClientList.vue"
+import ClientList from "./components/panels/client_list/ClientListPanel.vue"
 import ClientModal from "./components/modals/client_modal/ClientModal.vue"
 
 export default {
@@ -45,11 +42,13 @@ export default {
 		function closeModal() {
 			console.log("close")
 			showModal.value = false
-			activeClient = []
+			activeClient.value = []
 		}
-		function openModal(name) {
+		function openModal(name, value = false) {
 			showModal.value = name
-			console.log("event: ", name)
+			if (!!value && name === "addClient") {
+				activeClient.value = value
+			}
 		}
 		onMounted(() => {
 			onSnapshot(collection(db, "crm-db"), (querySnapshot) => {
@@ -66,18 +65,17 @@ export default {
 					clients.push(clientDetails)
 				})
 				clientList.value = clients
-				console.log("clientsList: ", clientList.value)
 			})
 		})
 		provide("fullClientList", clientList)
 		return {
+			openModal,
 			closeModal,
 			activeClient,
 			clientList,
 			showModal,
 			ClientModal,
 			ClientList,
-			openModal,
 		}
 	},
 }

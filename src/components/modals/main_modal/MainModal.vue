@@ -1,8 +1,12 @@
 <template>
 	<div class="modal-overlay" @click.self="$emit('close')">
 		<div class="modal-content">
-			<button @click.self="$emit('close')">Close</button>
-			<hr />
+			<button
+				@click.self="$emit('close')"
+				class="material-symbols-rounded"
+			>
+				Close
+			</button>
 			<slot></slot>
 		</div>
 	</div>
@@ -26,18 +30,28 @@ export default {
 	justify-content: center;
 	align-items: center;
 	background-color: rgba(0, 0, 0, 0.3);
-}
-
-.modal-content {
-	padding: 20px;
-	background: #fff;
-	border-radius: 2px;
-	display: inline-block;
-	min-height: 300px;
-	margin: 1rem;
-	position: relative;
-	min-width: 300px;
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-	justify-self: center;
+	.modal-content {
+		padding: 20px;
+		background: #fff;
+		border-radius: 2px;
+		display: inline-block;
+		min-height: 300px;
+		margin: 1rem;
+		position: relative;
+		min-width: 500px;
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+		justify-self: center;
+		button {
+			background-color: #333;
+			color: #fff;
+			border-radius: 5rem;
+			height: 30px;
+			width: 30px;
+			padding: 0;
+			position: absolute;
+			top: 5px;
+			right: 5px;
+		}
+	}
 }
 </style>

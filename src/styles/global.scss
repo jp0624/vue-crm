@@ -35,7 +35,9 @@ article {
 	position: relative;
 }
 article {
-	min-height: calc(100% - 8rem);
+	width: 90%;
+	margin: 1rem auto;
+	min-height: calc(100% - 10rem);
 }
 header {
 	height: 5rem;
