@@ -1,16 +1,23 @@
 <template>
+	<!-- Client Card -->
 	<div class="card__client">
+		<!-- Client Details -->
 		<div class="card__client--first_name">{{ client.first_name }}</div>
 		<div class="card__client--last_name">{{ client.last_name }}</div>
 		<div class="card__client--phone">{{ client.phone }}</div>
 		<div class="card__client--email">{{ client.email }}</div>
+
+		<!-- Buttons for Edit and Delete -->
 		<div class="card__client--btns">
+			<!-- Edit Button -->
 			<button
 				class="card__client--btns--edit material-symbols-rounded"
 				@click="$emit('activeClient', client)"
 			>
 				edit_note
 			</button>
+
+			<!-- Delete Button -->
 			<button
 				class="card__client--btns--delete material-symbols-rounded"
 				@click="deleteClient(client.id)"
@@ -24,11 +31,13 @@
 <script>
 import { doc, deleteDoc } from "firebase/firestore"
 import { db } from "../helpers/dbConnect"
+
 export default {
 	name: "ClientCard",
 	props: ["client"],
 
 	setup() {
+		// Function to delete a client
 		function deleteClient(id) {
 			deleteDoc(doc(db, "crm-db", id))
 		}
@@ -40,6 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .card {
+	/* Client Card Styles */
 	&__client {
 		background: #f0f9ff; /* Old browsers */
 		background: linear-gradient(
@@ -48,6 +58,8 @@ export default {
 			#e2e2e2 47%,
 			#cccccc 100%
 		);
+
+		/* Buttons Styles */
 		&--btns {
 			button {
 				margin: 0 0.25rem;
@@ -59,13 +71,19 @@ export default {
 				text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.25);
 				box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
 			}
+
+			/* Edit Button Styles */
 			&--edit {
 				background-color: #323ea8;
 			}
+
+			/* Delete Button Styles */
 			&--delete {
 				background-color: #a83232;
 			}
 		}
+
+		/* Client Detail Styles */
 		div {
 			color: #333;
 			padding: 1rem 0;

@@ -1,6 +1,9 @@
 <template>
+	<!-- Header Section -->
 	<header class="header">
+		<!-- Main Logo Link -->
 		<a href="./" class="logo__main">
+			<!-- Logo Image -->
 			<img src="/assets/img/logo/logo-horz.svg" />
 		</a>
 	</header>
@@ -10,6 +13,7 @@
 export default {
 	name: "Header",
 	setup() {
+		// Header Introduction for documentation
 		const header = "Header Introduction"
 
 		return {
@@ -21,6 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+	/* Header Styling */
 	display: flex;
 	flex-direction: row;
 	background-color: #111;
@@ -29,6 +34,7 @@ export default {
 
 	.logo {
 		&__main {
+			/* Main Logo Styling */
 			height: 100%;
 			width: 15rem;
 			display: flex;
@@ -36,11 +42,7 @@ export default {
 			align-items: center;
 			justify-content: center;
 
-			// @include mq(md) {
-			// 	width: 50%;
-			// 	box-sizing: border-box;
-			// }
-
+			/* Logo Image Styling */
 			img {
 				height: 50%;
 				position: relative;

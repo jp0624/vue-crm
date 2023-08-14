@@ -1,17 +1,26 @@
 <template>
 	<div>
-		<!-- <template v-if="alertMessage"> -->
+		<!-- Alert Message -->
 		<div class="alert-message" :class="alertMessage ? 'show' : 'hide'">
 			<h3>{{ alertMessage }}</h3>
 		</div>
-		<!-- </template> -->
+
+		<!-- Header Component -->
 		<Header />
+
+		<!-- Main Content -->
 		<article>
+			<!-- Client List Panel -->
 			<ClientList @open="openModal" />
 		</article>
+
+		<!-- Footer Component -->
 		<Footer />
+
+		<!-- Main Modal (Teleport) -->
 		<teleport to="#modal">
 			<MainModal v-show="showModal" @close="closeModal">
+				<!-- Conditional Rendering of Client Modal -->
 				<template v-if="showModal === 'addClient'">
 					<ClientModal
 						@close="closeModal"
@@ -44,27 +53,35 @@ export default {
 		ClientList,
 	},
 	setup() {
+		// Reactive Variables
 		const clientList = ref([])
 		let activeClient = ref([])
 		let showModal = ref(false)
 		let alertMessage = ref("")
 
+		// Function to Close Modal
 		function closeModal() {
 			showModal.value = false
 			activeClient.value = []
 		}
+
+		// Function to Open Modal
 		function openModal(name, value = false) {
 			showModal.value = name
 			if (!!value && name === "addClient") {
 				activeClient.value = value
 			}
 		}
+
+		// Function to Show Alert Message
 		function showAlert(message) {
 			alertMessage.value = message
 			setTimeout(() => {
 				alertMessage.value = ""
 			}, 3000)
 		}
+
+		// Fetch Client List from Firebase on Mount
 		onMounted(() => {
 			onSnapshot(collection(db, "crm-db"), (querySnapshot) => {
 				const clients = []
@@ -82,7 +99,10 @@ export default {
 				clientList.value = clients
 			})
 		})
+
+		// Provide Client List to Components
 		provide("fullClientList", clientList)
+
 		return {
 			openModal,
 			closeModal,
@@ -99,6 +119,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* Styling for Alert Message */
 .alert-message {
 	width: 100%;
 	background: #32a852;
