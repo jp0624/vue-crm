@@ -55,14 +55,17 @@ import { db } from "../../helpers/dbConnect"
 export default {
 	name: "ClientModal",
 	props: ["client"],
+	emits: ["close"],
 	setup(props, context) {
 		const clientData = inject("selectedClient")
 		const newClient = ref(true)
 		async function updateClient() {
 			if (!!state.id) {
 				updateDoc(doc(db, "crm-db", state.id), state)
+				context.emit("close")
 			} else {
 				addClient()
+				context.emit("close")
 			}
 		}
 		async function addClient() {
