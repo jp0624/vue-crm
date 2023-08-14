@@ -5,12 +5,12 @@ import { getFirestore } from "firebase/firestore"
 // See: https://support.google.com/firebase/answer/7015592
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_API_KEY,
-	authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-	projectId: import.meta.env.VITE_PROJECT_ID,
-	storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-	messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-	appId: import.meta.env.VITE_APP_ID,
-	measurementId: import.meta.env.VITE_MEASUREMENT_ID,
+	authDomain: "jp-vue-crm.firebaseapp.com",
+	projectId: "jp-vue-crm",
+	storageBucket: "jp-vue-crm.appspot.com",
+	messagingSenderId: "24663279784",
+	appId: "1:24663279784:web:6c714a4dda8d2ee1271a9d",
+	measurementId: "G-F38XTB5F55",
 }
 
 // Initialize Firebase
