@@ -51,6 +51,7 @@ export default {
 .card {
 	/* Client Card Styles */
 	&__client {
+		position: relative;
 		background: #f0f9ff; /* Old browsers */
 		background: linear-gradient(
 			to bottom,
@@ -99,6 +100,9 @@ export default {
 				&.card__client--first_name,
 				&.card__client--last_name {
 					padding-left: 2.5rem;
+				}
+				&.card__client--btns {
+					padding: 0;
 				}
 			}
 			padding: 1rem;
