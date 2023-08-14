@@ -9,7 +9,7 @@
 		<Header />
 
 		<!-- Main Content -->
-		<article>
+		<article class="customScroll">
 			<!-- Client List Panel -->
 			<ClientList @open="openModal" />
 		</article>

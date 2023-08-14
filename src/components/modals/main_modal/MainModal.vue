@@ -2,7 +2,7 @@
 	<!-- Modal Overlay -->
 	<div class="modal-overlay" @click.self="$emit('close')">
 		<!-- Modal Content -->
-		<div class="modal-content">
+		<div class="modal-content customScroll">
 			<!-- Close Button -->
 			<button
 				@click.self="$emit('close')"
