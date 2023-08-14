@@ -50,7 +50,7 @@ import { collection, addDoc } from "firebase/firestore"
 import { toRefs, reactive } from "vue"
 import { db } from "../../helpers/dbConnect"
 export default {
-	name: "AddClient",
+	name: "ClientModal",
 	// emits: ["close"],
 	setup() {
 		async function addClient() {

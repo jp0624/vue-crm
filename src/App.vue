@@ -1,46 +1,14 @@
 <template>
 	<div>
-		<Header @open="showModal = 'addClient'" />
+		<Header />
 		<article>
-			<ul class="client_list">
-				<li class="client_list__row">
-					<div class="card__headings">
-						<div class="card__headings--first_name">First Name</div>
-						<div class="card__headings--last_name">Last Name</div>
-						<div class="card__headings--phone">Phone Number</div>
-						<div class="card__headings--email">Email Address</div>
-						<div class="card__headings--btns">
-							<button
-								class="card__headings--btns--add"
-								@click="showModal = 'addClient'"
-							>
-								<span class="material-symbols-rounded"
-									>add</span
-								>
-								<span>New Client</span>
-							</button>
-						</div>
-					</div>
-				</li>
-				<template v-if="clientList.length > 0">
-					<li
-						v-for="client in clientList"
-						:key="client.id"
-						class="client_list__row"
-					>
-						<ClientCard :client="client" />
-					</li>
-				</template>
-				<template v-else>
-					<li class="client_list__row--loading">Loading...</li>
-				</template>
-			</ul>
+			<ClientList @open="openModal" /><!-- showModal = 'addClient'" /> -->
 		</article>
 		<!-- <pre>{{ clientList }}</pre> -->
 		<Footer />
 		<teleport to="#modal">
 			<MainModal v-show="showModal" @close="closeModal">
-				<AddClient
+				<ClientModal
 					v-show="showModal === 'addClient'"
 					@close="closeModal"
 					:activeClient="activeClient"
@@ -51,23 +19,23 @@
 </template>
 
 <script>
-import { ref, onMounted, reactive } from "vue"
+import { ref, onMounted, reactive, provide } from "vue"
 import { collection, onSnapshot } from "firebase/firestore"
 import { db } from "./components/helpers/dbConnect"
 import Header from "./components/structure/header/Header.vue"
 import Footer from "./components/structure/footer/Footer.vue"
-import MainModal from "./components/modals/main/MainModal.vue"
-import AddClient from "./components/modals/addClient/AddClientModal.vue"
-import ClientCard from "./components/cards/ClientCard.vue"
+import MainModal from "./components/modals/main_modal/MainModal.vue"
+import ClientList from "./components/panels/client_list/ClientList.vue"
+import ClientModal from "./components/modals/client_modal/ClientModal.vue"
 
 export default {
 	name: "App",
 	components: {
 		Header,
 		Footer,
-		AddClient,
+		ClientModal,
 		MainModal,
-		ClientCard,
+		ClientList,
 	},
 	setup() {
 		const clientList = ref([])
@@ -76,8 +44,12 @@ export default {
 
 		function closeModal() {
 			console.log("close")
-			showModal = false
+			showModal.value = false
 			activeClient = []
+		}
+		function openModal(name) {
+			showModal.value = name
+			console.log("event: ", name)
 		}
 		onMounted(() => {
 			onSnapshot(collection(db, "crm-db"), (querySnapshot) => {
@@ -94,75 +66,21 @@ export default {
 					clients.push(clientDetails)
 				})
 				clientList.value = clients
-				console.log("clientList: ", clientList.value)
+				console.log("clientsList: ", clientList.value)
 			})
 		})
+		provide("fullClientList", clientList)
 		return {
 			closeModal,
 			activeClient,
 			clientList,
 			showModal,
-			AddClient,
-			ClientCard,
+			ClientModal,
+			ClientList,
+			openModal,
 		}
 	},
 }
 </script>
 
-<style lang="scss" scoped>
-.client_list {
-	.client_list__row {
-		&--loading {
-			width: 100%;
-			text-align: center;
-			justify-content: center;
-			height: 100%;
-		}
-		.card__headings {
-			color: #fff;
-			font-weight: 400;
-			background: #a8a8a8;
-			background: linear-gradient(
-				to bottom,
-				#a8a8a8 0%,
-				#636363 58%,
-				#494949 100%
-			);
-			&--btns {
-				text-align: center;
-				button {
-					display: inline-flex;
-					text-align: center;
-					align-items: center;
-					justify-content: center;
-					margin: 0 0.25rem;
-					color: #fff;
-					border: none;
-					outline: none;
-					border-radius: 0.5rem;
-					padding: 0.25rem 0.5rem;
-					text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.25);
-					box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-				}
-				&--add {
-					background-color: #32a852;
-				}
-			}
-		}
-		.card__headings,
-		.card__client {
-			display: grid;
-			grid-auto-flow: column;
-			grid-auto-columns: 1fr 1fr 1fr 2fr;
-			text-align: center;
-			align-items: center;
-			justify-content: center;
-			margin: 0.5rem;
-			border-radius: 0.5rem;
-			div {
-				padding: 1rem 0;
-			}
-		}
-	}
-}
-</style>
+<style lang="scss" scoped></style>
